@@ -29,8 +29,8 @@ public class FileContentProviderExample extends ContentProvider {
 		File tempFile;
 		try {
 			JSONObject jo = new JSONObject();
-			jo.put("text", "hello world");
-			jo.put("number", 42);
+			jo.put("name", "test");
+			jo.put("label", "Test");
 			Log.i("FileContentProviderExample", "created json.");
 			tempFile = File.createTempFile("response", "json", this.getContext().getCacheDir());
 			writeJSONObjectToFile(jo, tempFile.getPath());
