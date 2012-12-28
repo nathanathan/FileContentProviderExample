@@ -17,9 +17,9 @@ import org.json.*;
 
 public class FileContentProviderExample extends ContentProvider {
 	
-	private void writeJSONObjectToFile(JSONObject obj, String outPath) throws JSONException, IOException {
+	private void writeJSONObjectToFile(JSONArray ja, String outPath) throws JSONException, IOException {
 		BufferedWriter out = new BufferedWriter(new FileWriter(outPath));
-		out.write(obj.toString(4));
+		out.write(ja.toString(4));
 		out.close();
 	}
 	@Override
@@ -28,12 +28,18 @@ public class FileContentProviderExample extends ContentProvider {
 		Log.i("FileContentProviderExample", "openFile");
 		File tempFile;
 		try {
-			JSONObject jo = new JSONObject();
-			jo.put("name", "test");
-			jo.put("label", "Test");
+			JSONArray ja = new JSONArray();
+			JSONObject a = new JSONObject();
+			a.put("name", "item_a");
+			a.put("label", "Item A");
+			ja.put(a);
+			JSONObject b = new JSONObject();
+			b.put("name", "item_b");
+			b.put("label", "Item B");
+			ja.put(b);
 			Log.i("FileContentProviderExample", "created json.");
 			tempFile = File.createTempFile("response", "json", this.getContext().getCacheDir());
-			writeJSONObjectToFile(jo, tempFile.getPath());
+			writeJSONObjectToFile(ja, tempFile.getPath());
 			Log.i("FileContentProviderExample", "saved json");
 		} catch (Exception e) {
 			throw new FileNotFoundException(e.toString());
